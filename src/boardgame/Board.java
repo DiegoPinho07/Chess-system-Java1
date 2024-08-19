@@ -4,11 +4,14 @@ public class Board {
 
 	private int rows;
 	private int columns;
+	//matriz para construção do tabuleiro
 	private Piece[][] pieces;
 	public Board(int rows, int columns) {
-		super();
 		this.rows = rows;
 		this.columns = columns;
+		//instanciando a classe piece incluindo como argumento as linhas e colunas
+		pieces = new Piece[rows][columns];
+		
 	}
 	public int getRows() {
 		return rows;
