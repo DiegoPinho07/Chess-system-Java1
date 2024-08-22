@@ -1,9 +1,20 @@
 package chess;
 
-public class ChessPiece {
+import boardgame.Board;
+import boardgame.Piece;
 
-	public ChessPiece() {
-		// TODO Auto-generated constructor stub
+public class ChessPiece extends Piece {
+
+	private Color color;
+    //construtores para indicar a classe Piece extendida no inicio da classe
+	public ChessPiece(Board board, Color color) {
+		super(board);
+		this.color = color;
 	}
+	public Color getColor() {
+		return color;
+	}
+	
+	
 
 }
