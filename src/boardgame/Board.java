@@ -35,17 +35,22 @@ public class Board  {
 	
 		//método sobrecarregado para puxar os dados da classe board e retornar nessa classe.
 		public Piece piece(Position position) {
-			if (thereIsAPiece(position)) {
-				throw new BoardException("Já existe uma peça na posição " + position);
+			
+				if (!positionExists(position)) {
+					throw new BoardException("Posição não existe no tabuleiro!!");
 			}
 			
 			return pieces[position.getRow()][position.getColumn()];
 		}
 		public void placePiece(Piece piece, Position position)
 		{
+			if(thereIsAPiece(position)) {
+				throw new BoardException("Já existe uma peça na posição:" + position);
+			}
 			pieces[position.getRow()][position.getColumn()] = piece;
 			piece.position = position;
 		}
+		
 		private boolean positionExists(int row, int column) {
 			return row >=0 && row < rows && column >=0 && column < columns;
 		}
