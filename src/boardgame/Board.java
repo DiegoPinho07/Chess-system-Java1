@@ -50,6 +50,22 @@ public class Board  {
 			pieces[position.getRow()][position.getColumn()] = piece;
 			piece.position = position;
 		}
+		//método para mover uma peça e deixar a posição que ela estava vazia
+		public Piece removePiece(Position position) {
+			//programação defensiva
+			if(!positionExists(position)) {
+				throw new BoardException("Posição não existe no tabuleiro!!");
+			}
+			//condição para retornar vazio, caso a posição seja vazia
+			if (piece(position) == null) {
+				return null;
+			}
+		//caso a posição tenha uma peça, ela será retirada da posição e esta, ficará vazia
+			Piece aux = piece(position);
+			aux.position = null;
+			pieces[position.getRow()][position.getColumn()] = null;
+			return aux;
+		}
 		
 		private boolean positionExists(int row, int column) {
 			return row >=0 && row < rows && column >=0 && column < columns;
