@@ -1,6 +1,8 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
+import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
 
@@ -26,6 +28,35 @@ public class ChessMatch {
 		}
 			return mat;
 		}
+	//método para demonstrar a performace da peça, como movimento, captura, etc
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		//convertendo o método para a string do chassMatch
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		//validação se na posição existe alguma peça
+		validateSourcePosition(source);
+		Piece capturedPiece = makeMove(source, target);
+		//DownCasting do método pois capturedPiece é da classe Piece, que é uma classe abaixo da classe chassMatch
+		return (ChessPiece) capturedPiece;
+	}
+	//excessão para validação da existência da posição da peça.
+	private void validateSourcePosition(Position position) {
+		if(!board.thereIsAPiece(position)) {
+			throw new chessException("Existe uma peça na posição de origem!!");
+		}
+	}
+	private Piece makeMove(Position source, Position target) {
+		
+		Piece p = board.removePiece(source);
+		Piece capturedPiece = board.removePiece(target);
+		board.placePiece(p, target);
+		return capturedPiece;
+		
+		
+	}
+	
+	
+	
 	//método que coloca as peças no tabuleiro, instanciando a classe board para puxar as posições do tabuleiro
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
