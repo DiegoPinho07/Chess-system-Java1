@@ -29,8 +29,8 @@ public class UI {
 	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-	
-	
+	//https://stackoverflow.com/quetions/2979383/java-clear-the-console
+	//método para limpar a tela do git bash
 	public static void clearScrean() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
