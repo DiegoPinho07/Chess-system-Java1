@@ -35,19 +35,30 @@ public class ChessMatch {
 		Position target = targetPosition.toPosition();
 		//validação se na posição existe alguma peça
 		validateSourcePosition(source);
+		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
 		//DownCasting do método pois capturedPiece é da classe Piece, que é uma classe abaixo da classe chassMatch
 		return (ChessPiece) capturedPiece;
 	}
+
 	//excessão para validação da existência da posição da peça.
 	private void validateSourcePosition(Position position) {
 		if(!board.thereIsAPiece(position)) {
 			throw new chessException("Existe uma peça na posição de origem!!");
 		}
+		//verificando se existe algum movimento possível para a peça indicada
 		if(!board.piece(position).isThereAnyPossibleMoves()) {
 			throw new chessException("Nao existem movimentos possiveis para a peca escolhida!");
 		}
 	}
+	
+	//validando se a posição de destino é válida em relação à posição de origem
+		private void validateTargetPosition(Position source, Position target) {
+			if(!board.piece(source).possibleMoves(target)) {
+				throw new chessException("A peça de origem não pode se mover ao destino");
+			}
+			
+		}
 	private Piece makeMove(Position source, Position target) {
 		
 		Piece p = board.removePiece(source);
@@ -57,8 +68,6 @@ public class ChessMatch {
 		
 		
 	}
-	
-	
 	
 	//método que coloca as peças no tabuleiro, instanciando a classe board para puxar as posições do tabuleiro
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
