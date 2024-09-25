@@ -1,5 +1,6 @@
 package boardgame;
 
+//A classe é abstrata pois não é possível definir o movimento das peças genéricas
 public abstract class Piece {
 
 	//protegido para não ser acessado pela classe tabuleiro
@@ -22,6 +23,7 @@ public abstract class Piece {
 			return possibleMoves()[position.getRow()][position.getColumn()];
 		}
 		
+		//método que vai varrer a matriz de movimento da peça, para verificar qual posição é verdadeira para movimento
 		public boolean isThereAnyPossibleMoves(){
 			
 			boolean[][] mat = possibleMoves();

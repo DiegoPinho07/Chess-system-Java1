@@ -16,7 +16,8 @@ public class King extends ChessPiece {
 		return "K";
 	}
 
-	@Override
+	//Método para retornar as posições possíveis de movimento do rei, entretanto por padrão, na matriz só terá posições falsas. Como se o rei estivesse preso
+	
 	public boolean[][] possibleMoves() {
 		boolean [][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 		return mat;
