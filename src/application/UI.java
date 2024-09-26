@@ -52,15 +52,32 @@ public class UI {
 		for (int i = 0; i < pieces.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < pieces.length; j++) {
-				printPiece(pieces[i][j]);
+				printPiece(pieces[i][j], false);
 
 			}
 			System.out.println();
 		}
 		System.out.println(" a b c d e f g h");
 	}
+	
+	//método para imprimir a tela com os movimentos possíveis
+	public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
+		// for para construir a matriz do tabuleiro
+		for (int i = 0; i < pieces.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < pieces.length; j++) {
+				printPiece(pieces[i][j], possibleMoves[i][j]);
 
-	private static void printPiece(ChessPiece piece) {
+			}
+			System.out.println();
+		}
+		System.out.println(" a b c d e f g h");
+		}
+//método para colorir de azul as posições possíveis
+	private static void printPiece(ChessPiece piece, boolean background) {
+		if(background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
 		if (piece == null) {
 			System.out.print("-");
 		}
@@ -76,4 +93,4 @@ public class UI {
 		System.out.print(" ");
 	}
 
-}
+	}
