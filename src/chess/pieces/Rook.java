@@ -26,9 +26,11 @@ public class Rook extends ChessPiece {
 		
 		p.setValues(position.getRow() - 1, position.getColumn());
 		while(getBoard().positionExists(p) && !getBoard().thereIsAPiece(p)){
+			//indicou que a posição está vaga e qua a peça pode se mover até lá
 			mat[p.getRow()][p.getColumn()] = true;
 			p.setRow(p.getRow() - 1);
 		}
+		//identificou se na posição tem uma peça de oposição, podendo então, ser movida para lá
 		if(getBoard().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getRow()][p.getColumn()] = true;
 		}
