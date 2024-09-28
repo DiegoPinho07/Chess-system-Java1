@@ -7,15 +7,25 @@ import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
-
-	private Board board;
+	//criando as classes turn e currentPlayer para indicar o turno e o jogador atual
+	private int turn;
+	private Color currentPlayer;
+    private Board board;
 	//classe que vai construir o xadrez e instanciar as regras da cada peça
 	public ChessMatch() {
-		//instanciando  o tabuleiro com os valores de linhas e colunas
+		//instanciando  o tabuleiro com os valores de linhas e colunas e os turnos e jogadores
 		board = new Board(8 , 8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
-		
-		
+		}
+	//criando os GETs e SETs para possibilitar o chamamento do objeto em outras classes
+	public int getTurn() {
+		return turn;
+	}
+	
+	public Color getCurrentPlayer(){
+		return currentPlayer;
 	}
 	
 	public ChessPiece[][] getPieces(){
@@ -46,6 +56,7 @@ public class ChessMatch {
 		validateTargetPosition(source, target);
 		Piece capturedPiece = makeMove(source, target);
 		//DownCasting do método pois capturedPiece é da classe Piece, que é uma classe abaixo da classe chassMatch
+		nextTurn();
 		return (ChessPiece) capturedPiece;
 	}
 
@@ -53,6 +64,9 @@ public class ChessMatch {
 	private void validateSourcePosition(Position position) {
 		if(!board.thereIsAPiece(position)) {
 			throw new chessException("Existe uma peça na posição de origem!!");
+		}
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()){
+			throw new chessException("A peça escolhida não é sua!");
 		}
 		//verificando se existe algum movimento possível para a peça indicada
 		if(!board.piece(position).isThereAnyPossibleMoves()) {
@@ -80,6 +94,11 @@ public class ChessMatch {
 	//método que coloca as peças no tabuleiro, instanciando a classe board para puxar as posições do tabuleiro
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+	}
+	
+	private void nextTurn() {
+		turn ++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 	//método que vai colocar as peças no tabuleiro 
 	private void initialSetup() {
