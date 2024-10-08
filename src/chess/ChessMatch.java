@@ -1,5 +1,8 @@
 package chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import boardgame.Board;
 import boardgame.Piece;
 import boardgame.Position;
@@ -11,6 +14,9 @@ public class ChessMatch {
 	private int turn;
 	private Color currentPlayer;
     private Board board;
+    
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 	//classe que vai construir o xadrez e instanciar as regras da cada peça
 	public ChessMatch() {
 		//instanciando  o tabuleiro com os valores de linhas e colunas e os turnos e jogadores
@@ -86,20 +92,28 @@ public class ChessMatch {
 		Piece p = board.removePiece(source);
 		Piece capturedPiece = board.removePiece(target);
 		board.placePiece(p, target);
+		
+		if(capturedPiece != null) {
+			piecesOnTheBoard.remove(capturedPiece);
+			capturedPiece.add(capturedPiece);
+		}
 		return capturedPiece;
 		
 		
+	}
+	private void nextTurn() {
+		turn ++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 	
 	//método que coloca as peças no tabuleiro, instanciando a classe board para puxar as posições do tabuleiro
 	private void placeNewPiece(char column, int row, ChessPiece piece) {
 		board.placePiece(piece, new ChessPosition(column, row).toPosition());
+		piecesOnTheBoard.add(piece);
 	}
 	
-	private void nextTurn() {
-		turn ++;
-		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
-	}
+
+	
 	//método que vai colocar as peças no tabuleiro 
 	private void initialSetup() {
 		placeNewPiece('c', 1, new Rook(board, Color.WHITE));
